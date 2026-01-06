@@ -41,7 +41,7 @@ public class TokenConfig {
                 return token;
 
         }catch (JWTCreationException exception){
-                throw new RuntimeException(("Error while genereting token"));
+                throw new RuntimeException("Error while genereting token", exception);
         }
 
     }
