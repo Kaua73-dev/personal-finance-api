@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CategoryService {
 
@@ -45,6 +48,17 @@ public class CategoryService {
               categorySaved.getNameCategory()
             );
         }
+
+
+        public List<CategoryResponse> getAllCategorys(){
+
+        return categoryRepository.findAll().stream().map
+                (category -> new CategoryResponse(category.getNameCategory()))
+                .collect(Collectors.toList());
+
+
+    }
+
 
 
 }
