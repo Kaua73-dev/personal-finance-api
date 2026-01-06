@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 @Component
@@ -33,7 +35,7 @@ public class TokenConfig {
             String token = JWT.create()
                     .withClaim("UserName", user.getName())
                     .withSubject(user.getEmail())
-                    .withExpiresAt(Date.from(Instant.now().plusSeconds(1000)))
+                    .withExpiresAt(Date.from(genExpiration()))
                     .withIssuedAt(Date.from(Instant.now()))
                     .sign(algorithm);
                 return token;
@@ -42,6 +44,10 @@ public class TokenConfig {
                 throw new RuntimeException(("Error while genereting token"));
         }
 
+    }
+
+    public Instant genExpiration(){
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
     public String validateToken(String token){
