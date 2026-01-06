@@ -2,6 +2,7 @@ package com.example.gestaoFinanceiro.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 import com.example.gestaoFinanceiro.entity.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,14 +23,23 @@ public class TokenConfig {
 
 
     public String generateToken(User user){
-        Algorithm algorithm = Algorithm.HMAC256(secret);
 
-        return JWT.create()
-                .withClaim("UserName", user.getName())
-                .withSubject(user.getEmail())
-                .withExpiresAt(Date.from(Instant.now().plusSeconds(1000)))
-                .withIssuedAt(Date.from(Instant.now()))
-                .sign(algorithm);
+
+        try{
+
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+
+            return JWT.create()
+                    .withClaim("UserName", user.getName())
+                    .withSubject(user.getEmail())
+                    .withExpiresAt(Date.from(Instant.now().plusSeconds(1000)))
+                    .withIssuedAt(Date.from(Instant.now()))
+                    .sign(algorithm);
+
+        }catch (JWTCreationException exception){
+                throw new RuntimeException(("Error while genereting token"));
+        }
+
     }
 
     public String extractUsername(String token){
