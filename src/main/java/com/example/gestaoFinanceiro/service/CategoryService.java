@@ -3,7 +3,7 @@ package com.example.gestaoFinanceiro.service;
 
 import com.example.gestaoFinanceiro.Exeptions.CategoryAlreadyExistExeption;
 import com.example.gestaoFinanceiro.Exeptions.CategoryNotFoundException;
-import com.example.gestaoFinanceiro.auth.AuthCategoryService;
+import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.CategoryRequest;
 import com.example.gestaoFinanceiro.dto.response.CategoryResponse;
 import com.example.gestaoFinanceiro.entity.model.Category;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService extends AuthCategoryService {
+public class CategoryService extends AuthVerifyService {
 
 
     private final CategoryRepository categoryRepository;
