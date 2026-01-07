@@ -53,8 +53,8 @@ public class CategoryController {
 
 
     @PutMapping("/category/{nameCategory}")
-        public CategoryResponse updateCategoryByName(@PathVariable String nameCategory, User user, @RequestBody CategoryRequest request){
-            return categoryService.updateCategoryByName(nameCategory, user, request);
+        public CategoryResponse updateCategoryByName(@PathVariable String nameCategory, @RequestBody CategoryRequest request){
+            return categoryService.updateCategoryByName(nameCategory, request);
     }
 
 

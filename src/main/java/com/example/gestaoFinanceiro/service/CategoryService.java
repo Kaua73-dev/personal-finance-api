@@ -76,7 +76,11 @@ public class CategoryService extends AuthCategoryService {
         }
 
 
-        public void deleteCategoryByName(String nameCategory, User user) {
+        public void deleteCategoryByName(String nameCategory) {
+
+            User user = getAuthenticatedUser();
+
+
 
             Category category = categoryRepository.findByNameCategoryAndUser(nameCategory, user).orElseThrow(() ->
                     new CategoryNotFoundException()
@@ -89,7 +93,10 @@ public class CategoryService extends AuthCategoryService {
 
 
 
-    public CategoryResponse updateCategoryByName(String nameCategory, User user, CategoryRequest request){
+    public CategoryResponse updateCategoryByName(String nameCategory, CategoryRequest request){
+
+
+        User user = getAuthenticatedUser();
 
         Category category = categoryRepository.findByNameCategoryAndUser(nameCategory, user).orElseThrow(() ->
                 new CategoryNotFoundException()
@@ -100,7 +107,7 @@ public class CategoryService extends AuthCategoryService {
             category.setNameCategory(request.nameCategory());
         }
 
-         categoryRepository.save(category);
+        categoryRepository.save(category);
 
         return new CategoryResponse(
             category.getNameCategory()
