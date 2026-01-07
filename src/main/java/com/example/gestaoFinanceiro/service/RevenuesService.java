@@ -11,6 +11,8 @@ import com.example.gestaoFinanceiro.entity.repository.RevenuesRepository;
 import com.example.gestaoFinanceiro.entity.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RevenuesService extends AuthVerifyService {
 
@@ -30,7 +32,7 @@ public class RevenuesService extends AuthVerifyService {
 
         User user = getAuthenticatedUser();
 
-        if(revenuesRepository.findByDescriptionAndUser(request.description(), user).isEmpty()){
+        if(revenuesRepository.findByDescriptionAndUser(request.description(), user).isPresent()){
             throw new CategoryAlreadyExistExeption();
         }
 
@@ -52,5 +54,10 @@ public class RevenuesService extends AuthVerifyService {
     }
 
 
+    
+    public List<Revenues> getAllRevenues(){
+        return revenuesRepository.findAll();
+    }
+    
 
 }
