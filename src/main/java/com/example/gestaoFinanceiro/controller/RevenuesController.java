@@ -2,6 +2,7 @@ package com.example.gestaoFinanceiro.controller;
 
 
 import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
+import com.example.gestaoFinanceiro.dto.response.CategoryResponse;
 import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
 import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.service.RevenuesService;
@@ -37,7 +38,7 @@ public class RevenuesController {
 
 
     @GetMapping("/revenues")
-    public List<Revenues> getAllRevenues(){
+    public List<RevenuesResponse> getAllRevenues(){
         return revenuesService.getAllRevenues();
     }
 

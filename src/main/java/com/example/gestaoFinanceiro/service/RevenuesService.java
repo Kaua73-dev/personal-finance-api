@@ -12,6 +12,7 @@ import com.example.gestaoFinanceiro.entity.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RevenuesService extends AuthVerifyService {
@@ -41,6 +42,7 @@ public class RevenuesService extends AuthVerifyService {
         revenues.setValue(request.value());
         revenues.setDate(request.date());
         revenues.setDescription(request.description());
+        revenues.setUser(user);
 
         Revenues revenuesSaved = revenuesRepository.save(revenues);
 
@@ -51,13 +53,34 @@ public class RevenuesService extends AuthVerifyService {
 
         );
 
+
     }
 
 
     
-    public List<Revenues> getAllRevenues(){
-        return revenuesRepository.findAll();
+    public List<RevenuesResponse> getAllRevenues(){
+
+        User user = getAuthenticatedUser();
+
+        return revenuesRepository.findByUser(user).stream().map
+        (revenues -> new RevenuesResponse(revenues.getValue(), revenues.getDate(), revenues.getDescription()))
+                .collect(Collectors.toList());
+
+
     }
     
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
