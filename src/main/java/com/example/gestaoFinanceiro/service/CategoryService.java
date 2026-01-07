@@ -10,6 +10,7 @@ import com.example.gestaoFinanceiro.entity.model.User;
 import com.example.gestaoFinanceiro.entity.repository.CategoryRepository;
 import com.example.gestaoFinanceiro.entity.repository.UserRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService {
+public class CategoryService extends AuthCategoryService {
 
 
     private final CategoryRepository categoryRepository;
@@ -29,15 +30,14 @@ public class CategoryService {
     }
 
 
-
         public CategoryResponse createCategory(CategoryRequest request){
-            if(categoryRepository.findByNameCategory(request.nameCategory()).isPresent()){
+
+            User user = getAuthenticatedUser();
+
+            if(categoryRepository.findByNameCategory(request.nameCategory(), user).isPresent()){
                 throw new CategoryAlreadyExistExeption();
             }
 
-            User user = userRepository.findById(request.user_id()).orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found")
-                    );
 
             Category category = new Category();
             category.setNameCategory(request.nameCategory());
@@ -53,6 +53,7 @@ public class CategoryService {
 
         public List<CategoryResponse> getAllCategorys(){
 
+
         return categoryRepository.findAll().stream().map
                 (category -> new CategoryResponse(category.getNameCategory()))
                 .collect(Collectors.toList());
@@ -60,9 +61,9 @@ public class CategoryService {
     }
 
 
-        public CategoryResponse getCategoryByName(String nameCategory){
+        public CategoryResponse getCategoryByName(String nameCategory, User user){
 
-            Category category = categoryRepository.findByNameCategory(nameCategory).orElseThrow(() ->
+            Category category = categoryRepository.findByNameCategory(nameCategory, user).orElseThrow(() ->
                     new CategoryNotFoundException()
                     );
 
@@ -72,9 +73,9 @@ public class CategoryService {
         }
 
 
-        public void deleteCategoryByName(String nameCategory) {
+        public void deleteCategoryByName(String nameCategory, User user) {
 
-            Category category = categoryRepository.findByNameCategory(nameCategory).orElseThrow(() ->
+            Category category = categoryRepository.findByNameCategory(nameCategory, user).orElseThrow(() ->
                     new CategoryNotFoundException()
         );
 
@@ -85,9 +86,9 @@ public class CategoryService {
 
 
 
-    public CategoryResponse updateCategoryByName(String nameCategory, CategoryRequest request){
+    public CategoryResponse updateCategoryByName(String nameCategory, User user, CategoryRequest request){
 
-        Category category = categoryRepository.findByNameCategory(nameCategory).orElseThrow(() ->
+        Category category = categoryRepository.findByNameCategory(nameCategory, user).orElseThrow(() ->
                 new CategoryNotFoundException()
         );
 
