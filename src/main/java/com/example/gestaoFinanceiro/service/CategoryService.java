@@ -3,16 +3,14 @@ package com.example.gestaoFinanceiro.service;
 
 import com.example.gestaoFinanceiro.Exeptions.CategoryAlreadyExistExeption;
 import com.example.gestaoFinanceiro.Exeptions.CategoryNotFoundException;
+import com.example.gestaoFinanceiro.auth.AuthCategoryService;
 import com.example.gestaoFinanceiro.dto.request.CategoryRequest;
 import com.example.gestaoFinanceiro.dto.response.CategoryResponse;
 import com.example.gestaoFinanceiro.entity.model.Category;
 import com.example.gestaoFinanceiro.entity.model.User;
 import com.example.gestaoFinanceiro.entity.repository.CategoryRepository;
 import com.example.gestaoFinanceiro.entity.repository.UserRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,10 +49,12 @@ public class CategoryService extends AuthCategoryService {
         }
 
 
-        public List<CategoryResponse> getAllCategorys(){
+        public List<CategoryResponse> getAllCategory(){
+
+        User user = getAuthenticatedUser();
 
 
-        return categoryRepository.findAll().stream().map
+        return categoryRepository.findByUser(user).stream().map
                 (category -> new CategoryResponse(category.getNameCategory()))
                 .collect(Collectors.toList());
 

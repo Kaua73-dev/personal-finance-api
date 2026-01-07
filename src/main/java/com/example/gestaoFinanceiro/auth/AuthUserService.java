@@ -1,4 +1,4 @@
-package com.example.gestaoFinanceiro.service;
+package com.example.gestaoFinanceiro.auth;
 
 import com.example.gestaoFinanceiro.entity.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

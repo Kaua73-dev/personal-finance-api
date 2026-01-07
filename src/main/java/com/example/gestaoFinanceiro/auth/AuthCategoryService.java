@@ -1,4 +1,4 @@
-package com.example.gestaoFinanceiro.service;
+package com.example.gestaoFinanceiro.auth;
 
 import com.example.gestaoFinanceiro.entity.model.User;
 import org.springframework.security.core.context.SecurityContextHolder;
