@@ -32,9 +32,7 @@ public class SecurityConfig {
                         dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/auth/all/categorys").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/auth/category").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/auth/category").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/category/{nameCategory}").permitAll()
                         .anyRequest().authenticated()
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

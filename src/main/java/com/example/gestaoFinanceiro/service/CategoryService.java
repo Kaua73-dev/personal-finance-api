@@ -74,14 +74,36 @@ public class CategoryService {
 
         public void deleteCategoryByName(String nameCategory) {
 
-        Category category = categoryRepository.findByNameCategory(nameCategory).orElseThrow(() ->
-                new CategoryNotFoundException()
+            Category category = categoryRepository.findByNameCategory(nameCategory).orElseThrow(() ->
+                    new CategoryNotFoundException()
         );
 
         categoryRepository.delete(category);
 
 
     }
+
+
+
+    public CategoryResponse updateCategoryByName(String nameCategory, CategoryRequest request){
+
+        Category category = categoryRepository.findByNameCategory(nameCategory).orElseThrow(() ->
+                new CategoryNotFoundException()
+        );
+
+
+        if(request.nameCategory() != null){
+            category.setNameCategory(request.nameCategory());
+        }
+
+         categoryRepository.save(category);
+
+        return new CategoryResponse(
+            category.getNameCategory()
+        );
+
+    }
+
 
 
 
