@@ -3,7 +3,6 @@ package com.example.gestaoFinanceiro.controller;
 
 import com.example.gestaoFinanceiro.dto.request.CategoryRequest;
 import com.example.gestaoFinanceiro.dto.response.CategoryResponse;
-import com.example.gestaoFinanceiro.entity.model.Category;
 import com.example.gestaoFinanceiro.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +34,22 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/categorys")
+    @GetMapping("/all/categorys")
     public List<CategoryResponse> getAllCategory(){
         return categoryService.getAllCategorys();
     }
+
+    @GetMapping("/category/{nameCategory}")
+    public CategoryResponse getCategoryByName(@PathVariable String nameCategory){
+        return categoryService.getCategoryByName(nameCategory);
+    }
+
+
+    @DeleteMapping("/category/{nameCategory}")
+    public void deleteCategoryByName(@PathVariable String nameCategory){
+        categoryService.deleteCategoryByName(nameCategory);
+    }
+
 
 
 }

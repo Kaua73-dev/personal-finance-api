@@ -1,7 +1,8 @@
 package com.example.gestaoFinanceiro.service;
 
 
-import com.example.gestaoFinanceiro.Exeptions.UserAlreadyExistsException;
+import com.example.gestaoFinanceiro.Exeptions.CategoryAlreadyExistExeption;
+import com.example.gestaoFinanceiro.Exeptions.CategoryNotFoundException;
 import com.example.gestaoFinanceiro.dto.request.CategoryRequest;
 import com.example.gestaoFinanceiro.dto.response.CategoryResponse;
 import com.example.gestaoFinanceiro.entity.model.Category;
@@ -31,7 +32,7 @@ public class CategoryService {
 
         public CategoryResponse createCategory(CategoryRequest request){
             if(categoryRepository.findByNameCategory(request.nameCategory()).isPresent()){
-                throw new UserAlreadyExistsException();
+                throw new CategoryAlreadyExistExeption();
             }
 
             User user = userRepository.findById(request.user_id()).orElseThrow(() ->
@@ -55,6 +56,29 @@ public class CategoryService {
         return categoryRepository.findAll().stream().map
                 (category -> new CategoryResponse(category.getNameCategory()))
                 .collect(Collectors.toList());
+
+    }
+
+
+        public CategoryResponse getCategoryByName(String nameCategory){
+
+            Category category = categoryRepository.findByNameCategory(nameCategory).orElseThrow(() ->
+                    new CategoryNotFoundException()
+                    );
+
+
+            return new CategoryResponse(category.getNameCategory());
+
+        }
+
+
+        public void deleteCategoryByName(String nameCategory) {
+
+        Category category = categoryRepository.findByNameCategory(nameCategory).orElseThrow(() ->
+                new CategoryNotFoundException()
+        );
+
+        categoryRepository.delete(category);
 
 
     }
