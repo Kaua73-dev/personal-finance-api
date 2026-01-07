@@ -32,7 +32,7 @@ public class CategoryService extends AuthCategoryService {
 
             User user = getAuthenticatedUser();
 
-            if(categoryRepository.findByNameCategory(request.nameCategory(), user).isPresent()){
+            if(categoryRepository.findByNameCategoryAndUser(request.nameCategory(), user).isPresent()){
                 throw new CategoryAlreadyExistExeption();
             }
 
@@ -61,11 +61,14 @@ public class CategoryService extends AuthCategoryService {
     }
 
 
-        public CategoryResponse getCategoryByName(String nameCategory, User user){
+        public CategoryResponse getCategoryByName(String nameCategory){
 
-            Category category = categoryRepository.findByNameCategory(nameCategory, user).orElseThrow(() ->
+            User user = getAuthenticatedUser();
+
+
+            Category category = categoryRepository.findByNameCategoryAndUser(nameCategory, user).orElseThrow(() ->
                     new CategoryNotFoundException()
-                    );
+            );
 
 
             return new CategoryResponse(category.getNameCategory());
@@ -75,7 +78,7 @@ public class CategoryService extends AuthCategoryService {
 
         public void deleteCategoryByName(String nameCategory, User user) {
 
-            Category category = categoryRepository.findByNameCategory(nameCategory, user).orElseThrow(() ->
+            Category category = categoryRepository.findByNameCategoryAndUser(nameCategory, user).orElseThrow(() ->
                     new CategoryNotFoundException()
         );
 
@@ -88,7 +91,7 @@ public class CategoryService extends AuthCategoryService {
 
     public CategoryResponse updateCategoryByName(String nameCategory, User user, CategoryRequest request){
 
-        Category category = categoryRepository.findByNameCategory(nameCategory, user).orElseThrow(() ->
+        Category category = categoryRepository.findByNameCategoryAndUser(nameCategory, user).orElseThrow(() ->
                 new CategoryNotFoundException()
         );
 

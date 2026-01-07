@@ -42,13 +42,13 @@ public class CategoryController {
 
     @GetMapping("/category/{nameCategory}")
     public CategoryResponse getCategoryByName(@PathVariable String nameCategory, User user){
-        return categoryService.getCategoryByName(nameCategory, user);
+        return categoryService.getCategoryByName(nameCategory);
     }
 
 
     @DeleteMapping("/category/{nameCategory}")
     public void deleteCategoryByName(@PathVariable String nameCategory, User user){
-        categoryService.deleteCategoryByName(nameCategory, user);
+        categoryService.deleteCategoryByName(nameCategory);
     }
 
 
