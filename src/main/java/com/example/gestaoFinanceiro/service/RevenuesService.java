@@ -3,6 +3,7 @@ package com.example.gestaoFinanceiro.service;
 
 import com.example.gestaoFinanceiro.Exeptions.CategoryAlreadyExistExeption;
 import com.example.gestaoFinanceiro.Exeptions.CategoryNotFoundException;
+import com.example.gestaoFinanceiro.Exeptions.RevenuesNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
 import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
@@ -37,7 +38,7 @@ public class RevenuesService extends AuthVerifyService {
         User user = getAuthenticatedUser();
 
         if(revenuesRepository.findByDescriptionAndUser(request.description(), user).isPresent()){
-            throw new CategoryAlreadyExistExeption();
+            throw new RevenuesNotFoundException();
         }
 
 
@@ -94,12 +95,45 @@ public class RevenuesService extends AuthVerifyService {
         User user = getAuthenticatedUser();
 
         Revenues revenues = revenuesRepository.findByDescriptionAndUser(description, user).orElseThrow(() ->
-                new CategoryNotFoundException()
+                new RevenuesNotFoundException()
         );
 
 
         revenuesRepository.delete(revenues);
 
+    }
+
+
+    public RevenuesResponse updateRevenues(RevenuesRequest request, String description){
+
+        User user = getAuthenticatedUser();
+
+        Revenues revenues = revenuesRepository.findByDescriptionAndUser(description, user).orElseThrow(() ->
+                new RevenuesNotFoundException()
+                );
+
+
+        if(request.description() != null){
+            revenues.setDescription(request.description());
+        }
+
+        if(request.value() != null){
+            revenues.setValue(request.value());
+        }
+
+        if(request.date() != null){
+            revenues.setDate(request.date());
+        }
+
+
+        revenuesRepository.save(revenues);
+
+        return new RevenuesResponse(
+            revenues.getValue(),
+            revenues.getDate(),
+            revenues.getDescription()
+
+      );
     }
 
 
