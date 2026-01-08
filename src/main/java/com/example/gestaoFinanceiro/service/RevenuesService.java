@@ -60,8 +60,6 @@ public class RevenuesService extends AuthVerifyService {
 
     }
 
-
-    
     public List<RevenuesResponse> getAllRevenues(){
 
         User user = getAuthenticatedUser();
@@ -72,7 +70,6 @@ public class RevenuesService extends AuthVerifyService {
 
 
     }
-    
 
     public List<RevenuesResponse> getRevenuesRepositoryByDate(int year, int month){
 
@@ -90,7 +87,6 @@ public class RevenuesService extends AuthVerifyService {
     }
 
 
-
     public void deleteRevenuesByDescriptionAndUser(String description){
         User user = getAuthenticatedUser();
 
@@ -102,7 +98,6 @@ public class RevenuesService extends AuthVerifyService {
         revenuesRepository.delete(revenues);
 
     }
-
 
     public RevenuesResponse updateRevenues(RevenuesRequest request, String description){
 
