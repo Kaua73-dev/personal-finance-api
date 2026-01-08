@@ -2,9 +2,7 @@ package com.example.gestaoFinanceiro.controller;
 
 
 import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
-import com.example.gestaoFinanceiro.dto.response.CategoryResponse;
 import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
-import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.service.RevenuesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +45,14 @@ public class RevenuesController {
     public List<RevenuesResponse> getRevenuesByDate(@PathVariable int year, @PathVariable int month){
         return revenuesService.getRevenuesRepositoryByDate(year, month);
     }
+
+
+    @DeleteMapping("/revenues/{description}")
+    public void deleteRevenuesByDescriptionAndUser(@PathVariable String description){
+        revenuesService.deleteRevenuesByDescriptionAndUser(description);
+    }
+
+
 
 }
 

@@ -2,6 +2,7 @@ package com.example.gestaoFinanceiro.service;
 
 
 import com.example.gestaoFinanceiro.Exeptions.CategoryAlreadyExistExeption;
+import com.example.gestaoFinanceiro.Exeptions.CategoryNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
 import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
@@ -72,7 +73,6 @@ public class RevenuesService extends AuthVerifyService {
     }
     
 
-
     public List<RevenuesResponse> getRevenuesRepositoryByDate(int year, int month){
 
         User user = getAuthenticatedUser();
@@ -89,7 +89,24 @@ public class RevenuesService extends AuthVerifyService {
     }
 
 
+
+    public void deleteRevenuesByDescriptionAndUser(String description){
+        User user = getAuthenticatedUser();
+
+        Revenues revenues = revenuesRepository.findByDescriptionAndUser(description, user).orElseThrow(() ->
+                new CategoryNotFoundException()
+        );
+
+
+        revenuesRepository.delete(revenues);
+
+    }
+
+
 }
+
+
+
 
 
 

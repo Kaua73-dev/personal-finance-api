@@ -28,7 +28,7 @@ public class CategoryService extends AuthVerifyService {
     }
 
 
-        public CategoryResponse createCategory(CategoryRequest request){
+    public CategoryResponse createCategory(CategoryRequest request){
 
             User user = getAuthenticatedUser();
 
@@ -49,10 +49,9 @@ public class CategoryService extends AuthVerifyService {
         }
 
 
-        public List<CategoryResponse> getAllCategory(){
+    public List<CategoryResponse> getAllCategory(){
 
         User user = getAuthenticatedUser();
-
 
         return categoryRepository.findByUser(user).stream().map
                 (category -> new CategoryResponse(category.getNameCategory()))
@@ -61,36 +60,31 @@ public class CategoryService extends AuthVerifyService {
     }
 
 
-        public CategoryResponse getCategoryByName(String nameCategory){
+    public CategoryResponse getCategoryByName(String nameCategory){
 
             User user = getAuthenticatedUser();
-
 
             Category category = categoryRepository.findByNameCategoryAndUser(nameCategory, user).orElseThrow(() ->
                     new CategoryNotFoundException()
             );
-
 
             return new CategoryResponse(category.getNameCategory());
 
         }
 
 
-        public void deleteCategoryByName(String nameCategory) {
+    public void deleteCategoryByName(String nameCategory) {
 
             User user = getAuthenticatedUser();
 
-
-
             Category category = categoryRepository.findByNameCategoryAndUser(nameCategory, user).orElseThrow(() ->
                     new CategoryNotFoundException()
-        );
+            );
 
-        categoryRepository.delete(category);
+            categoryRepository.delete(category);
 
 
     }
-
 
 
     public CategoryResponse updateCategoryByName(String nameCategory, CategoryRequest request){
