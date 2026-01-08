@@ -2,6 +2,7 @@ package com.example.gestaoFinanceiro.service;
 
 
 import com.example.gestaoFinanceiro.Exeptions.UserAlreadyExistsException;
+import com.example.gestaoFinanceiro.Exeptions.UserNotFoundException;
 import com.example.gestaoFinanceiro.config.TokenConfig;
 import com.example.gestaoFinanceiro.dto.request.LoginRequest;
 import com.example.gestaoFinanceiro.dto.request.RegisterRequest;
@@ -56,7 +57,7 @@ public class UserService {
 
     public LoginResponse login(LoginRequest request){
         if(userRepository.findByEmail(request.email()).isEmpty()){
-            throw new UserAlreadyExistsException();
+            throw new UserNotFoundException();
         }
 
         UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(request.email(), request.password());
