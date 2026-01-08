@@ -42,6 +42,12 @@ public class RevenuesController {
         return revenuesService.getAllRevenues();
     }
 
+
+    @GetMapping("/revenues/{year}/{month}")
+    public List<RevenuesResponse> getRevenuesByDate(@PathVariable int year, @PathVariable int month){
+        return revenuesService.getRevenuesRepositoryByDate(year, month);
+    }
+
 }
 
 

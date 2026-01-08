@@ -11,6 +11,8 @@ import com.example.gestaoFinanceiro.entity.repository.RevenuesRepository;
 import com.example.gestaoFinanceiro.entity.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +71,23 @@ public class RevenuesService extends AuthVerifyService {
 
     }
     
+
+
+    public List<RevenuesResponse> getRevenuesRepositoryByDate(int year, int month){
+
+        User user = getAuthenticatedUser();
+
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.plusMonths(1);
+
+        return revenuesRepository.findByUserAndDateBetween(user, start, end)
+                .stream()
+                .map(revenues -> new RevenuesResponse(revenues.getValue(), revenues.getDate(), revenues.getDescription()))
+                .toList();
+
+
+    }
+
 
 }
 
