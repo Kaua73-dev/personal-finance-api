@@ -3,8 +3,8 @@ package com.example.gestaoFinanceiro.service;
 
 import com.example.gestaoFinanceiro.Exeptions.category.CategoryAlreadyExistException;
 import com.example.gestaoFinanceiro.Exeptions.category.CategoryNotFoundException;
-import com.example.gestaoFinanceiro.Exeptions.RevenuesAlreadyExistException;
-import com.example.gestaoFinanceiro.Exeptions.RevenuesNotFoundException;
+import com.example.gestaoFinanceiro.Exeptions.revenues.RevenuesAlreadyExistException;
+import com.example.gestaoFinanceiro.Exeptions.revenues.RevenuesNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
 import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
