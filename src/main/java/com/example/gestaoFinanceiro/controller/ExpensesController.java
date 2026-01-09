@@ -4,11 +4,11 @@ package com.example.gestaoFinanceiro.controller;
 
 import com.example.gestaoFinanceiro.dto.request.ExpensesRequest;
 import com.example.gestaoFinanceiro.dto.response.ExpensesResponse;
+import com.example.gestaoFinanceiro.entity.model.Expenses;
 import com.example.gestaoFinanceiro.service.ExpensesService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -26,5 +26,9 @@ public class ExpensesController {
         return expensesService.createExpenses(request);
     }
 
+    @GetMapping("/expenses/{nameCategory}")
+    public ExpensesResponse getExpensesByNameCategory(@PathVariable String nameCategory){
+        return expensesService.getExpensesByNameCategory(nameCategory);
+    }
 
 }
