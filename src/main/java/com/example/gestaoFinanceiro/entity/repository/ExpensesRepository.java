@@ -13,7 +13,7 @@ public interface ExpensesRepository {
 
     Optional<Expenses> findByDescriptionAndUser(String description, User user);
 
-    List<Expenses> findNameCategoryAndUser(String nameCategory, User user);
+    Optional<Expenses> findNameCategoryAndUser(String nameCategory, User user);
 
     List<Expenses> findByUserAndDateBetween(User user, LocalDate start, LocalDate end);
 

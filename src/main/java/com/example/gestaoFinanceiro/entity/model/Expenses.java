@@ -29,6 +29,10 @@ public class Expenses {
     @Column(name="description", nullable = false)
     private String description;
 
+    @Column(name="category", nullable = false)
+    private String nameCategory;
+
+
     @ManyToOne
     @JoinColumn(name="user_id", nullable = true)
     private User user;
