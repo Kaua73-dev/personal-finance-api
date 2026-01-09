@@ -14,7 +14,7 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
 
     Optional<Expenses> findByDescriptionAndUser(String description, User user);
 
-    Optional<Expenses> findNameCategoryAndUser(String nameCategory, User user);
+    Optional<Expenses> findByNameCategoryAndUser(String nameCategory, User user);
 
     List<Expenses> findByUserAndDateBetween(User user, LocalDate start, LocalDate end);
 

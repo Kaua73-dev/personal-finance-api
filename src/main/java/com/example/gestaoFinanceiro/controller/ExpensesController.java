@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class ExpensesController {
 
-
-
     private final ExpensesService expensesService;
 
     public ExpensesController(ExpensesService expensesService) {

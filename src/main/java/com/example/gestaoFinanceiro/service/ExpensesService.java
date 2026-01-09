@@ -34,7 +34,7 @@ public class ExpensesService extends AuthVerifyService {
             throw new ExpenseAlreadyExistException();
         }
 
-        if(expensesRepository.findNameCategoryAndUser(request.nameCategory(), user).isPresent()){
+        if(expensesRepository.findByNameCategoryAndUser(request.nameCategory(), user).isPresent()){
             throw new CategoryAlreadyExistException();
         }
 
