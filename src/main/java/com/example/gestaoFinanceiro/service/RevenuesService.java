@@ -2,6 +2,7 @@ package com.example.gestaoFinanceiro.service;
 
 
 import com.example.gestaoFinanceiro.Exeptions.CategoryNotFoundException;
+import com.example.gestaoFinanceiro.Exeptions.RevenuesAlreadyExistException;
 import com.example.gestaoFinanceiro.Exeptions.RevenuesNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
@@ -35,12 +36,15 @@ public class RevenuesService extends AuthVerifyService {
 
     }
 
+
+
+
     public RevenuesResponse createRevenues(RevenuesRequest request){
 
         User user = getAuthenticatedUser();
 
         if(revenuesRepository.findByDescriptionAndUser(request.description(), user).isPresent()){
-            throw new RevenuesNotFoundException();
+            throw new RevenuesAlreadyExistException();
         }
 
         if(revenuesRepository.findByUserAndNameCategory(user, request.nameCategory()).isEmpty()){
