@@ -1,8 +1,8 @@
 package com.example.gestaoFinanceiro.service;
 
 
-import com.example.gestaoFinanceiro.Exeptions.UserAlreadyExistsException;
-import com.example.gestaoFinanceiro.Exeptions.UserNotFoundException;
+import com.example.gestaoFinanceiro.Exeptions.user.UserAlreadyExistsException;
+import com.example.gestaoFinanceiro.Exeptions.user.UserNotFoundException;
 import com.example.gestaoFinanceiro.config.TokenConfig;
 import com.example.gestaoFinanceiro.dto.request.LoginRequest;
 import com.example.gestaoFinanceiro.dto.request.RegisterRequest;

@@ -1,4 +1,4 @@
-package com.example.gestaoFinanceiro.Exeptions;
+package com.example.gestaoFinanceiro.Exeptions.user;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException() {

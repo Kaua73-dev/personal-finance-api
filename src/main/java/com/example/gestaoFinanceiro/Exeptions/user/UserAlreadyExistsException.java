@@ -1,4 +1,4 @@
-package com.example.gestaoFinanceiro.Exeptions;
+package com.example.gestaoFinanceiro.Exeptions.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
