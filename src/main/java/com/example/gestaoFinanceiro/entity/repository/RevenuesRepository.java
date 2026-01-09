@@ -17,6 +17,6 @@ public interface RevenuesRepository extends JpaRepository<Revenues, Integer> {
 
     List<Revenues> findByUserAndDateBetween(User user, LocalDate start, LocalDate end);
 
-    List<Revenues> findByUserAndNameCategory(User user, String nameCategory);
+    Optional<Revenues> findByUserAndNameCategory(User user, String nameCategory);
 
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -48,7 +49,7 @@ public class RevenuesController {
     }
 
     @GetMapping("/revenues/{nameCategory}")
-    public List<Revenues> getRevenuesByNameCategory(@PathVariable @RequestBody String nameCategory){
+    public Optional<Revenues> getRevenuesByNameCategory(@PathVariable @RequestBody String nameCategory){
         return revenuesService.getRevenuesByNameCategory(nameCategory);
     }
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RevenuesService extends AuthVerifyService {
@@ -23,7 +24,7 @@ public class RevenuesService extends AuthVerifyService {
 
     private final RevenuesRepository revenuesRepository;
 
-    public RevenuesService(RevenuesRepository revenuesRepository, UserRepository userRepository) {
+    public RevenuesService(RevenuesRepository revenuesRepository) {
         this.revenuesRepository = revenuesRepository;
     }
 
@@ -48,7 +49,7 @@ public class RevenuesService extends AuthVerifyService {
             throw new RevenuesAlreadyExistException();
         }
 
-        if(revenuesRepository.findByUserAndNameCategory(user, request.nameCategory()).isEmpty()){
+        if(revenuesRepository.findByUserAndNameCategory(user, request.nameCategory()).isPresent()){
             throw new CategoryAlreadyExistException();
         }
 
@@ -90,11 +91,11 @@ public class RevenuesService extends AuthVerifyService {
 
     }
 
-    public List<Revenues> getRevenuesByNameCategory(String nameCategory){
+    public Optional<Revenues> getRevenuesByNameCategory(String nameCategory){
 
         User user = getAuthenticatedUser();
         
-        List<Revenues> revenues = revenuesRepository.findByUserAndNameCategory(user, nameCategory);
+        Optional<Revenues> revenues = revenuesRepository.findByUserAndNameCategory(user, nameCategory);
 
 
         if(revenues.isEmpty()){
