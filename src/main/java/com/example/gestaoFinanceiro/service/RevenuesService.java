@@ -14,18 +14,15 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RevenuesService extends AuthVerifyService {
 
 
     private final RevenuesRepository revenuesRepository;
-    private final UserRepository userRepository;
 
     public RevenuesService(RevenuesRepository revenuesRepository, UserRepository userRepository) {
         this.revenuesRepository = revenuesRepository;
-        this.userRepository = userRepository;
     }
 
     private RevenuesResponse toResponse(Revenues r){
@@ -37,7 +34,6 @@ public class RevenuesService extends AuthVerifyService {
         );
 
     }
-
 
     public RevenuesResponse createRevenues(RevenuesRequest request){
 
