@@ -16,6 +16,14 @@ public class ExpensesService {
     }
 
 
+    public ExpensesResponse createExpenses(ExpensesRequest request){
+
+
+
+
+
+
+    }
 
 
 
