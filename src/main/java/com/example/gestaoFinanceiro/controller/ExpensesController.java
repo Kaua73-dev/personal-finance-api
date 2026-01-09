@@ -36,5 +36,10 @@ public class ExpensesController {
         return expensesService.getExpensesByDateBetween(year, month);
     }
 
+    @DeleteMapping("/expenses/{description}")
+    public void deleteExpenseByDescription(String description){
+        expensesService.deleteExpensesByDescription(description);
+    }
+
 
 }
