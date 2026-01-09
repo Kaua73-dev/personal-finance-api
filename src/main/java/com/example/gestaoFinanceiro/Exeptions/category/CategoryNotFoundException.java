@@ -1,4 +1,4 @@
-package com.example.gestaoFinanceiro.Exeptions;
+package com.example.gestaoFinanceiro.Exeptions.category;
 
 
 import org.springframework.http.HttpStatus;
