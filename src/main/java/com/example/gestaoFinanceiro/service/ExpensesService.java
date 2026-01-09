@@ -47,7 +47,16 @@ public class ExpensesService extends AuthVerifyService {
         expenses.setUser(user);
 
 
-        Expenses expensesSaved = expensesRepository
+        Expenses expensesSaved = expensesRepository.save(expenses);
+
+
+        return new ExpensesResponse(
+          expensesSaved.getNameCategory(),
+          expensesSaved.getDate(),
+          expensesSaved.getValue(),
+          expensesSaved.getDescription()
+
+        );
 
     }
 

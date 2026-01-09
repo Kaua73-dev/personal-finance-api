@@ -63,10 +63,10 @@ public class RevenuesService extends AuthVerifyService {
         Revenues revenuesSaved = revenuesRepository.save(revenues);
 
         return new RevenuesResponse(
-                revenues.getNameCategory(),
-                revenues.getValue(),
-                revenues.getDate(),
-                revenues.getDescription()
+                revenuesSaved.getNameCategory(),
+                revenuesSaved.getValue(),
+                revenuesSaved.getDate(),
+                revenuesSaved.getDescription()
                 );
 
 
