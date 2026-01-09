@@ -11,15 +11,12 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@Table(name="revenues")
-public class Revenues {
+@Table(name="expenses")
+public class Expenses {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name="name_category", nullable = false, unique = true, length = 1000)
-    private String nameCategory;
 
     @Column(name="value", nullable = false)
     private BigDecimal value;
@@ -35,5 +32,6 @@ public class Revenues {
     @ManyToOne
     @JoinColumn(name="user_id", nullable = true)
     private User user;
+
 
 }
