@@ -1,7 +1,6 @@
 package com.example.gestaoFinanceiro.service;
 
 
-import com.example.gestaoFinanceiro.Exeptions.CategoryAlreadyExistExeption;
 import com.example.gestaoFinanceiro.Exeptions.CategoryNotFoundException;
 import com.example.gestaoFinanceiro.Exeptions.RevenuesNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
@@ -14,7 +13,6 @@ import com.example.gestaoFinanceiro.entity.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +28,15 @@ public class RevenuesService extends AuthVerifyService {
         this.userRepository = userRepository;
     }
 
+    private RevenuesResponse toResponse(Revenues r){
+        return new RevenuesResponse(
+                r.getNameCategory(),
+                r.getValue(),
+                r.getDate(),
+                r.getDescription()
+        );
 
+    }
 
 
     public RevenuesResponse createRevenues(RevenuesRequest request){
@@ -41,33 +47,32 @@ public class RevenuesService extends AuthVerifyService {
             throw new RevenuesNotFoundException();
         }
 
+        if(revenuesRepository.findByUserAndNameCategory(user, request.nameCategory()).isEmpty()){
+            throw new CategoryNotFoundException();
+        }
 
         Revenues revenues = new Revenues();
         revenues.setValue(request.value());
         revenues.setDate(request.date());
         revenues.setDescription(request.description());
+        revenues.setNameCategory(request.nameCategory());
         revenues.setUser(user);
 
         Revenues revenuesSaved = revenuesRepository.save(revenues);
 
         return new RevenuesResponse(
-        revenuesSaved.getValue(),
-        revenuesSaved.getDate(),
-        revenuesSaved.getDescription()
-
-        );
+                revenues.getNameCategory(),
+                revenues.getValue(),
+                revenues.getDate(),
+                revenues.getDescription()
+                );
 
 
     }
 
     public List<RevenuesResponse> getAllRevenues(){
-
         User user = getAuthenticatedUser();
-
-        return revenuesRepository.findByUser(user).stream().map
-        (revenues -> new RevenuesResponse(revenues.getValue(), revenues.getDate(), revenues.getDescription()))
-                .collect(Collectors.toList());
-
+        return revenuesRepository.findByUser(user).stream().map(this::toResponse).toList();
 
     }
 
@@ -80,12 +85,23 @@ public class RevenuesService extends AuthVerifyService {
 
         return revenuesRepository.findByUserAndDateBetween(user, start, end)
                 .stream()
-                .map(revenues -> new RevenuesResponse(revenues.getValue(), revenues.getDate(), revenues.getDescription()))
-                .toList();
-
+                .map(this::toResponse).toList();
 
     }
 
+    public List<Revenues> getRevenuesByNameCategory(String nameCategory){
+
+        User user = getAuthenticatedUser();
+        
+        List<Revenues> revenues = revenuesRepository.findByUserAndNameCategory(user, nameCategory);
+
+
+        if(revenues.isEmpty()){
+            throw new CategoryNotFoundException();
+        }
+
+        return revenues;
+    }
 
     public void deleteRevenuesByDescriptionAndUser(String description){
         User user = getAuthenticatedUser();
@@ -107,9 +123,8 @@ public class RevenuesService extends AuthVerifyService {
                 new RevenuesNotFoundException()
                 );
 
-
-        if(request.description() != null){
-            revenues.setDescription(request.description());
+        if(request.nameCategory() != null){
+            revenues.setNameCategory(request.nameCategory());
         }
 
         if(request.value() != null){
@@ -120,17 +135,19 @@ public class RevenuesService extends AuthVerifyService {
             revenues.setDate(request.date());
         }
 
+        if(request.description() != null){
+            revenues.setDescription(request.description());
+        }
 
         revenuesRepository.save(revenues);
 
         return new RevenuesResponse(
+            revenues.getNameCategory(),
             revenues.getValue(),
             revenues.getDate(),
             revenues.getDescription()
-
       );
     }
-
 
 }
 

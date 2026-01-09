@@ -1,10 +1,9 @@
 package com.example.gestaoFinanceiro.controller;
 
 
-import com.example.gestaoFinanceiro.dto.request.CategoryRequest;
-import com.example.gestaoFinanceiro.dto.response.CategoryResponse;
+import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
+import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
 import com.example.gestaoFinanceiro.entity.model.User;
-import com.example.gestaoFinanceiro.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +23,9 @@ public class CategoryController {
 
 
     @PostMapping("/category")
-    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest request){
+    public ResponseEntity<RevenuesResponse> createCategory(@RequestBody RevenuesRequest request){
 
-        CategoryResponse response = categoryService.createCategory(request);
+        RevenuesResponse response = categoryService.createCategory(request);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -36,12 +35,12 @@ public class CategoryController {
     }
 
     @GetMapping("/all/categorys")
-    public List<CategoryResponse> getAllCategory(){
+    public List<RevenuesResponse> getAllCategory(){
         return categoryService.getAllCategory();
     }
 
     @GetMapping("/category/{nameCategory}")
-    public CategoryResponse getCategoryByName(@PathVariable String nameCategory, User user){
+    public RevenuesResponse getCategoryByName(@PathVariable String nameCategory, User user){
         return categoryService.getCategoryByName(nameCategory);
     }
 
@@ -53,7 +52,7 @@ public class CategoryController {
 
 
     @PutMapping("/category/{nameCategory}")
-        public CategoryResponse updateCategoryByName(@PathVariable String nameCategory, @RequestBody CategoryRequest request){
+        public RevenuesResponse updateCategoryByName(@PathVariable String nameCategory, @RequestBody RevenuesRequest request){
             return categoryService.updateCategoryByName(nameCategory, request);
     }
 

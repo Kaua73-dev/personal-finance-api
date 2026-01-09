@@ -18,6 +18,8 @@ public class Revenues {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="name_category", nullable = false, unique = true, length = 1000)
+    private String nameCategory;
 
     @Column(name="value", nullable = false)
     private BigDecimal value;
@@ -29,12 +31,6 @@ public class Revenues {
 
     @Column(name="description", nullable = false)
     private String description;
-
-
-    @ManyToOne
-    @JoinColumn(name="category_id", nullable = true)
-    private Category category;
-
 
 
     @ManyToOne
