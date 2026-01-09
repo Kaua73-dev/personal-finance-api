@@ -40,9 +40,14 @@ public class ExpensesService extends AuthVerifyService {
 
 
         Expenses expenses = new Expenses();
-        expenses.get
+        expenses.setNameCategory(request.nameCategory());
+        expenses.setDate(request.date());
+        expenses.setValue(request.value());
+        expenses.setDescription(request.description());
+        expenses.setUser(user);
 
 
+        Expenses expensesSaved = expensesRepository
 
     }
 

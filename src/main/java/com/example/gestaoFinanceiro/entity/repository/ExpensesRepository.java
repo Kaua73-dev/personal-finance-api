@@ -2,12 +2,13 @@ package com.example.gestaoFinanceiro.entity.repository;
 
 import com.example.gestaoFinanceiro.entity.model.Expenses;
 import com.example.gestaoFinanceiro.entity.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface ExpensesRepository {
+public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
 
 
 
