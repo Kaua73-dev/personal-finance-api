@@ -141,7 +141,7 @@ public class ExpensesService extends AuthVerifyService {
 
     }
 
-    public BigDecimalr(int year, int month){
+    public BigDecimal getTotalExpensesUserByDate(int year, int month){
 
     User user = getAuthenticatedUser();
 
