@@ -69,7 +69,7 @@ Follow the steps below to run the project locally.
 
 bash
 ```
-git clone https://github.com/your-username/your-repository-name.git
+git clone(https://github.com/Kaua73-dev/personal-finance-api.git)
 cd your-repository-name 
 ```
 
