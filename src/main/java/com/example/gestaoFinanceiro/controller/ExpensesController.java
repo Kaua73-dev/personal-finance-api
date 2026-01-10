@@ -32,7 +32,7 @@ public class ExpensesController {
     }
 
     @GetMapping("/revenues/{nameCategory}")
-    public Optional<Expenses> getRevenuesByNameCategory(@PathVariable @RequestBody String nameCategory){
+    public Optional<Expenses> getRevenuesByNameCategory(@PathVariable String nameCategory){
         return expensesService.getRevenuesByNameCategory(nameCategory);
     }
 
