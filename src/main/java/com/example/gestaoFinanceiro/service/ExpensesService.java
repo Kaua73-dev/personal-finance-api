@@ -6,6 +6,7 @@ import com.example.gestaoFinanceiro.Exeptions.expenses.ExpenseAlreadyExistExcept
 import com.example.gestaoFinanceiro.Exeptions.expenses.ExpensesNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.ExpensesRequest;
+import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
 import com.example.gestaoFinanceiro.dto.response.ExpensesResponse;
 import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
 import com.example.gestaoFinanceiro.entity.model.Expenses;
@@ -126,7 +127,44 @@ public class ExpensesService extends AuthVerifyService {
     }
 
 
+    public ExpensesResponse updateExpenseByDescription(RevenuesRequest request, String description){
 
+        User user = getAuthenticatedUser();
+
+
+        Expenses expenses = expensesRepository.findByDescriptionAndUser(description, user).orElseThrow(() ->
+                new ExpensesNotFoundException()
+                );
+
+        if(request.nameCategory() == null){
+            expenses.setNameCategory(request.nameCategory());
+        }
+
+        if(request.date() == null){
+            expenses.setDate(request.date());
+        }
+
+        if(request.value() == null){
+            expenses.setValue(request.value());
+        }
+
+        if(request.description() == null){
+            expenses.setDescription(request.description());
+        }
+
+
+        expensesRepository.save(expenses);
+
+
+        return new ExpensesResponse(
+           expenses.getNameCategory(),
+           expenses.getDate(),
+           expenses.getValue(),
+           expenses.getDescription()
+        );
+
+
+    }
 
 
 
