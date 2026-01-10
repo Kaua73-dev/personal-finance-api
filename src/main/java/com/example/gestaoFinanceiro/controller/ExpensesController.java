@@ -3,10 +3,12 @@ package com.example.gestaoFinanceiro.controller;
 
 
 import com.example.gestaoFinanceiro.dto.request.ExpensesRequest;
+import com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse;
 import com.example.gestaoFinanceiro.dto.response.ExpensesResponse;
 import com.example.gestaoFinanceiro.service.ExpensesService;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -46,5 +48,15 @@ public class ExpensesController {
         return expensesService.updateExpenseByDescription(request, description);
     }
 
+
+    @GetMapping("/expenses/totalUser/{year}/{month}")
+    public BigDecimal getTotalByUser(@PathVariable int year, @PathVariable int month){
+        return expensesService.getTotalExpensesByUser(year, month);
+    }
+
+    @GetMapping("/expenses/totalCategory/{year}/{month}")
+    public List<CategoryTotalResponse> getTotalByCategory(@PathVariable int year, @PathVariable int month){
+        return expensesService.getTotalByCategory(year, month)
+    }
 
 }
