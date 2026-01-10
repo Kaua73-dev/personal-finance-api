@@ -71,24 +71,9 @@ public class ExpensesService extends AuthVerifyService {
 
     }
 
-    public ExpensesResponse getExpensesByNameCategory(String nameCategory){
+    public List<ExpensesResponse> getExpenses(){
         User user = getAuthenticatedUser();
-        
-
-
-        Expenses expenses = expensesRepository.findByNameCategoryAndUser(nameCategory, user).orElseThrow(() ->
-                new ExpensesNotFoundException()
-                );
-
-        
-        return new ExpensesResponse(
-                expenses.getNameCategory(),
-                expenses.getDate(),
-                expenses.getValue(),
-                expenses.getDescription()
-                
-        );
-
+        return expensesRepository.findByUser(user).stream().map(this::toResponse).toList();
     }
 
     public List<ExpensesResponse> getExpensesByDateBetween(int year, int month){
@@ -156,7 +141,7 @@ public class ExpensesService extends AuthVerifyService {
 
     }
 
-    public BigDecimal getTotalExpensesByUser(int year, int month){
+    public BigDecimalr(int year, int month){
 
     User user = getAuthenticatedUser();
 

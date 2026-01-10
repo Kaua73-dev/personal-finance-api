@@ -28,9 +28,9 @@ public class ExpensesController {
         return expensesService.createExpenses(request);
     }
 
-    @GetMapping("/expenses/{nameCategory}")
-    public ExpensesResponse getExpensesByNameCategory(@PathVariable String nameCategory) {
-        return expensesService.getExpensesByNameCategory(nameCategory);
+    @GetMapping("/expenses")
+    public List<ExpensesResponse> getExpenses(){
+        return expensesService.getExpenses();
     }
 
     @GetMapping("/expenses/{year}/{month}")

@@ -25,6 +25,7 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
     List<Expenses> findByUser(User user);
 
 
+
     @Query("""
     SELECT COALESCE(SUM(e.value), 0)
         FROM Expenses e
