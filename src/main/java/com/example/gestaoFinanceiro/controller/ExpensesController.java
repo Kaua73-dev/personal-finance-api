@@ -5,11 +5,14 @@ package com.example.gestaoFinanceiro.controller;
 import com.example.gestaoFinanceiro.dto.request.ExpensesRequest;
 import com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse;
 import com.example.gestaoFinanceiro.dto.response.ExpensesResponse;
+import com.example.gestaoFinanceiro.entity.model.Expenses;
+import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.service.ExpensesService;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -26,6 +29,11 @@ public class ExpensesController {
     @PostMapping("/expenses")
     public ExpensesResponse createExpenses(@RequestBody ExpensesRequest request) {
         return expensesService.createExpenses(request);
+    }
+
+    @GetMapping("/revenues/{nameCategory}")
+    public Optional<Expenses> getRevenuesByNameCategory(@PathVariable @RequestBody String nameCategory){
+        return expensesService.getRevenuesByNameCategory(nameCategory);
     }
 
     @GetMapping("/expenses")

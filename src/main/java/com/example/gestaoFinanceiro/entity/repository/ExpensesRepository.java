@@ -2,6 +2,7 @@ package com.example.gestaoFinanceiro.entity.repository;
 
 import com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse;
 import com.example.gestaoFinanceiro.entity.model.Expenses;
+import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.entity.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +23,7 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
 
     List<Expenses> findByUser(User user);
 
+    Optional<Expenses> findByUserAndNameCategory(User user, String nameCategory);
 
 
     @Query("""
