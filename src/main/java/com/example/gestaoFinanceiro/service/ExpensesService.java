@@ -93,7 +93,7 @@ public class ExpensesService extends AuthVerifyService {
     public void deleteExpensesByDescription(String description){
         User user = getAuthenticatedUser();
 
-        Expenses expenses = expensesRepository.findByNameCategoryAndUser(description, user).orElseThrow(() ->
+        Expenses expenses = expensesRepository.findByDescriptionAndUser(description, user).orElseThrow(() ->
                 new ExpensesNotFoundException()
 
         );

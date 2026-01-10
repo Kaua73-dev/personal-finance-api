@@ -39,7 +39,7 @@ public class ExpensesController {
     }
 
     @DeleteMapping("/expenses/{description}")
-    public void deleteExpenseByDescription(String description) {
+    public void deleteExpenseByDescription(@PathVariable String description) {
         expensesService.deleteExpensesByDescription(description);
     }
 
