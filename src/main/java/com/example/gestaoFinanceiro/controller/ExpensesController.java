@@ -24,39 +24,39 @@ public class ExpensesController {
 
 
     @PostMapping("/expenses")
-    public ExpensesResponse createExpenses(@RequestBody ExpensesRequest request){
+    public ExpensesResponse createExpenses(@RequestBody ExpensesRequest request) {
         return expensesService.createExpenses(request);
     }
 
     @GetMapping("/expenses/{nameCategory}")
-    public ExpensesResponse getExpensesByNameCategory(@PathVariable String nameCategory){
+    public ExpensesResponse getExpensesByNameCategory(@PathVariable String nameCategory) {
         return expensesService.getExpensesByNameCategory(nameCategory);
     }
 
     @GetMapping("/expenses/{year}/{month}")
-    public List<ExpensesResponse> getExpensesByDate(@PathVariable int year, int month){
+    public List<ExpensesResponse> getExpensesByDate(@PathVariable int year, int month) {
         return expensesService.getExpensesByDateBetween(year, month);
     }
 
     @DeleteMapping("/expenses/{description}")
-    public void deleteExpenseByDescription(String description){
+    public void deleteExpenseByDescription(String description) {
         expensesService.deleteExpensesByDescription(description);
     }
 
     @PutMapping("/expenses/{description}")
-    public ExpensesResponse updateExpensesByDescription(@PathVariable ExpensesRequest request, String description){
+    public ExpensesResponse updateExpensesByDescription(@PathVariable ExpensesRequest request, String description) {
         return expensesService.updateExpenseByDescription(request, description);
     }
 
 
     @GetMapping("/expenses/totalUser/{year}/{month}")
-    public BigDecimal getTotalByUser(@PathVariable int year, @PathVariable int month){
+    public BigDecimal getTotalByUser(@PathVariable int year, @PathVariable int month) {
         return expensesService.getTotalExpensesByUser(year, month);
     }
 
     @GetMapping("/expenses/totalCategory/{year}/{month}")
-    public List<CategoryTotalResponse> getTotalByCategory(@PathVariable int year, @PathVariable int month){
-        return expensesService.getTotalByCategory(year, month)
+    public List<CategoryTotalResponse> getTotalByCategory(@PathVariable int year, @PathVariable int month) {
+        return expensesService.getTotalByCategory(year, month);
     }
 
 }

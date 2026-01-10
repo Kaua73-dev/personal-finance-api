@@ -40,14 +40,14 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
 
     @Query("""
        SELECT new com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse(
-        r.nameCategory,
-        SUM(r.value)
+        e.nameCategory,
+        SUM(e.value)
         )
     FROM Expenses e
     WHERE e.user = :user
     AND e.date >= :start
     AND e.date < :end
-    GROUP BY r.nameCategory   
+    GROUP BY e.nameCategory   
 """)
     List<CategoryTotalResponse> totalExpensesByCategory(
             @Param("user") User user,
