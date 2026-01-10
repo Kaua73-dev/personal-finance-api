@@ -2,6 +2,7 @@ package com.example.gestaoFinanceiro.controller;
 
 
 import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
+import com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse;
 import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
 import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.service.RevenuesService;
@@ -65,6 +66,10 @@ public class RevenuesController {
         return revenuesService.updateRevenues(request, description);
     }
 
+    @GetMapping("revenues/{year}/{month}")
+    public List<CategoryTotalResponse> getTotalByCategory(@PathVariable int year, @PathVariable int month){
+        return revenuesService.getTotalByCategory(year, month);
+    }
 
 
 

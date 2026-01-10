@@ -13,6 +13,7 @@ import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.entity.model.User;
 import com.example.gestaoFinanceiro.entity.repository.RevenuesRepository;
 import com.example.gestaoFinanceiro.entity.repository.UserRepository;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -153,14 +154,22 @@ public class RevenuesService extends AuthVerifyService {
       );
     }
 
-    public List<CategoryTotalResponse> getTotalByCategory(){
+    public List<CategoryTotalResponse> getTotalByCategory(int year, int month){
         User user = getAuthenticatedUser();
-        return revenuesRepository.totalRevenuesByCategory(user);
+
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.plusMonths(1);
+
+        return revenuesRepository.totalRevenuesByCategory(user, start, end);
     }
 
-    public BigDecimal getAllTotal(){
-        User user = getAuthenticatedUser();        
-        return revenuesRepository.totalRevenuesByUser(user);
+    public BigDecimal getAllTotal(int year, int month){
+        User user = getAuthenticatedUser();
+
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.plusMonths(1);
+
+        return revenuesRepository.totalRevenuesByUser(user, start, end);
     }
 
 
