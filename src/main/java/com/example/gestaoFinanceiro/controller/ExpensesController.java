@@ -41,4 +41,10 @@ public class ExpensesController {
         expensesService.deleteExpensesByDescription(description);
     }
 
+    @PutMapping("/expenses/{description}")
+    public ExpensesResponse updateExpensesByDescription(@PathVariable ExpensesRequest request, String description){
+        return expensesService.updateExpenseByDescription(request, description);
+    }
+
+
 }

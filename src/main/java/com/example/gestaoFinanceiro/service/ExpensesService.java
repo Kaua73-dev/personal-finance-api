@@ -6,18 +6,14 @@ import com.example.gestaoFinanceiro.Exeptions.expenses.ExpenseAlreadyExistExcept
 import com.example.gestaoFinanceiro.Exeptions.expenses.ExpensesNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.ExpensesRequest;
-import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
 import com.example.gestaoFinanceiro.dto.response.ExpensesResponse;
-import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
 import com.example.gestaoFinanceiro.entity.model.Expenses;
-import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.entity.model.User;
 import com.example.gestaoFinanceiro.entity.repository.ExpensesRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ExpensesService extends AuthVerifyService {
@@ -127,7 +123,7 @@ public class ExpensesService extends AuthVerifyService {
     }
 
 
-    public ExpensesResponse updateExpenseByDescription(RevenuesRequest request, String description){
+    public ExpensesResponse updateExpenseByDescription(ExpensesRequest request, String description){
 
         User user = getAuthenticatedUser();
 
