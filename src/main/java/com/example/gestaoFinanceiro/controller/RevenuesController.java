@@ -51,7 +51,7 @@ public class RevenuesController {
     }
 
     @GetMapping("/revenues/{nameCategory}")
-    public Optional<Revenues> getRevenuesByNameCategory(@PathVariable @RequestBody String nameCategory){
+    public Optional<Revenues> getRevenuesByNameCategory(@PathVariable String nameCategory){
         return revenuesService.getRevenuesByNameCategory(nameCategory);
     }
 
