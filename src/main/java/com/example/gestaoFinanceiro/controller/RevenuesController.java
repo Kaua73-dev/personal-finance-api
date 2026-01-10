@@ -67,12 +67,12 @@ public class RevenuesController {
         return revenuesService.updateRevenues(request, description);
     }
 
-    @GetMapping("revenues/{year}/{month}")
+    @GetMapping("revenues/totalCategory/{year}/{month}")
     public List<CategoryTotalResponse> getTotalByCategory(@PathVariable int year, @PathVariable int month){
         return revenuesService.getTotalByCategory(year, month);
     }
 
-    @GetMapping("revenues/{year}/{month}")
+    @GetMapping("revenues/totalUser/{year}/{month}")
     public BigDecimal getTotalByUser(@PathVariable int year, @PathVariable int month){
         return revenuesService.getAllTotal(year, month);
     }

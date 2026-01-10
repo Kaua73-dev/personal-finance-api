@@ -52,9 +52,6 @@ public class RevenuesService extends AuthVerifyService {
             throw new RevenuesAlreadyExistException();
         }
 
-        if(revenuesRepository.findByUserAndNameCategory(user, request.nameCategory()).isPresent()){
-            throw new CategoryAlreadyExistException();
-        }
 
         Revenues revenues = new Revenues();
         revenues.setValue(request.value());
