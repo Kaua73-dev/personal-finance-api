@@ -6,6 +6,7 @@ import com.example.gestaoFinanceiro.Exeptions.expenses.ExpenseAlreadyExistExcept
 import com.example.gestaoFinanceiro.Exeptions.expenses.ExpensesNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.ExpensesRequest;
+import com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse;
 import com.example.gestaoFinanceiro.dto.response.ExpensesResponse;
 import com.example.gestaoFinanceiro.entity.model.Expenses;
 import com.example.gestaoFinanceiro.entity.model.User;
@@ -48,10 +49,6 @@ public class ExpensesService extends AuthVerifyService {
             throw new ExpenseAlreadyExistException();
         }
 
-        if(expensesRepository.findByNameCategoryAndUser(request.nameCategory(), user).isPresent()){
-            throw new CategoryAlreadyExistException();
-        }
-
 
         Expenses expenses = new Expenses();
         expenses.setNameCategory(request.nameCategory());
@@ -74,7 +71,6 @@ public class ExpensesService extends AuthVerifyService {
 
     }
 
-
     public ExpensesResponse getExpensesByNameCategory(String nameCategory){
         User user = getAuthenticatedUser();
         
@@ -94,7 +90,6 @@ public class ExpensesService extends AuthVerifyService {
         );
 
     }
-
 
     public List<ExpensesResponse> getExpensesByDateBetween(int year, int month){
 
@@ -121,7 +116,6 @@ public class ExpensesService extends AuthVerifyService {
          expensesRepository.delete(expenses);
 
     }
-
 
     public ExpensesResponse updateExpenseByDescription(ExpensesRequest request, String description){
 
@@ -162,8 +156,7 @@ public class ExpensesService extends AuthVerifyService {
 
     }
 
-
-public BigDecimal getTotalExpensesByUser(int year, int month){
+    public BigDecimal getTotalExpensesByUser(int year, int month){
 
     User user = getAuthenticatedUser();
 
@@ -172,7 +165,18 @@ public BigDecimal getTotalExpensesByUser(int year, int month){
 
     return expensesRepository.totalExpensesByUser(user, start, end);
 
-}
+    }
+
+    public List<CategoryTotalResponse> getTotalByCategory(int year, int month){
+
+        User user = getAuthenticatedUser();
+
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.plusMonths(1);
+
+        return expensesRepository.totalExpensesByCategory(user, start, end);
+
+    }
 
 
 
