@@ -34,7 +34,7 @@ public class ExpensesController {
     }
 
     @GetMapping("/expenses/{year}/{month}")
-    public List<ExpensesResponse> getExpensesByDate(@PathVariable int year, int month) {
+    public List<ExpensesResponse> getExpensesByDate(@PathVariable int year, @PathVariable int month) {
         return expensesService.getExpensesByDateBetween(year, month);
     }
 
