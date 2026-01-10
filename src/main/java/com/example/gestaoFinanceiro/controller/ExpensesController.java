@@ -44,14 +44,14 @@ public class ExpensesController {
     }
 
     @PutMapping("/expenses/{description}")
-    public ExpensesResponse updateExpensesByDescription(@PathVariable ExpensesRequest request, String description) {
+    public ExpensesResponse updateExpensesByDescription(@PathVariable String description, @RequestBody ExpensesRequest request) {
         return expensesService.updateExpenseByDescription(request, description);
     }
 
 
     @GetMapping("/expenses/totalUser/{year}/{month}")
     public BigDecimal getTotalByUser(@PathVariable int year, @PathVariable int month) {
-        return expensesService.getTotalExpensesByUser(year, month);
+        return expensesService.getTotalExpensesUserByDate(year, month);
     }
 
     @GetMapping("/expenses/totalCategory/{year}/{month}")

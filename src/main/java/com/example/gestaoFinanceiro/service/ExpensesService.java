@@ -111,19 +111,19 @@ public class ExpensesService extends AuthVerifyService {
                 new ExpensesNotFoundException()
                 );
 
-        if(request.nameCategory() == null){
+        if(request.nameCategory() != null){
             expenses.setNameCategory(request.nameCategory());
         }
 
-        if(request.date() == null){
+        if(request.date() != null){
             expenses.setDate(request.date());
         }
 
-        if(request.value() == null){
+        if(request.value() != null){
             expenses.setValue(request.value());
         }
 
-        if(request.description() == null){
+        if(request.description() != null){
             expenses.setDescription(request.description());
         }
 
