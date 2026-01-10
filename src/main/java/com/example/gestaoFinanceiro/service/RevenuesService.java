@@ -1,7 +1,6 @@
 package com.example.gestaoFinanceiro.service;
 
 
-import com.example.gestaoFinanceiro.Exeptions.category.CategoryAlreadyExistException;
 import com.example.gestaoFinanceiro.Exeptions.category.CategoryNotFoundException;
 import com.example.gestaoFinanceiro.Exeptions.revenues.RevenuesAlreadyExistException;
 import com.example.gestaoFinanceiro.Exeptions.revenues.RevenuesNotFoundException;
@@ -12,8 +11,6 @@ import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
 import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.entity.model.User;
 import com.example.gestaoFinanceiro.entity.repository.RevenuesRepository;
-import com.example.gestaoFinanceiro.entity.repository.UserRepository;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
