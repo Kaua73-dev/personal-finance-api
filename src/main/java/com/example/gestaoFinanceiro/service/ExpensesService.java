@@ -10,8 +10,10 @@ import com.example.gestaoFinanceiro.dto.response.ExpensesResponse;
 import com.example.gestaoFinanceiro.entity.model.Expenses;
 import com.example.gestaoFinanceiro.entity.model.User;
 import com.example.gestaoFinanceiro.entity.repository.ExpensesRepository;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -108,8 +110,6 @@ public class ExpensesService extends AuthVerifyService {
 
     }
 
-
-
     public void deleteExpensesByDescription(String description){
         User user = getAuthenticatedUser();
 
@@ -161,6 +161,19 @@ public class ExpensesService extends AuthVerifyService {
 
 
     }
+
+
+public BigDecimal getTotalExpensesByUser(int year, int month){
+
+    User user = getAuthenticatedUser();
+
+    LocalDate start = LocalDate.of(year, month, 1);
+    LocalDate end = start.plusMonths(1);
+
+    return expensesRepository.totalExpensesByUser(user, start, end);
+
+}
+
 
 
 
