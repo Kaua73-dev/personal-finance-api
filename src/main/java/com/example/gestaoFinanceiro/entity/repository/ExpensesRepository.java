@@ -1,5 +1,6 @@
 package com.example.gestaoFinanceiro.entity.repository;
 
+import com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse;
 import com.example.gestaoFinanceiro.entity.model.Expenses;
 import com.example.gestaoFinanceiro.entity.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,7 +38,22 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
             @Param("end") LocalDate end
     );
 
-
+    @Query("""
+       SELECT new com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse(
+        r.nameCategory,
+        SUM(r.value)
+        )
+    FROM Expenses e
+    WHERE e.user = :user
+    AND e.date >= :start
+    AND e.date < :end
+    GROUP BY r.nameCategory   
+""")
+    List<CategoryTotalResponse> totalExpensesByCategory(
+            @Param("user") User user,
+            @Param("start") LocalDate start,
+            @Param("end") LocalDate end
+    );
 
 
 }
