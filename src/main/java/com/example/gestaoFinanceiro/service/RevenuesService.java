@@ -7,6 +7,7 @@ import com.example.gestaoFinanceiro.Exeptions.revenues.RevenuesAlreadyExistExcep
 import com.example.gestaoFinanceiro.Exeptions.revenues.RevenuesNotFoundException;
 import com.example.gestaoFinanceiro.auth.AuthVerifyService;
 import com.example.gestaoFinanceiro.dto.request.RevenuesRequest;
+import com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse;
 import com.example.gestaoFinanceiro.dto.response.RevenuesResponse;
 import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.entity.model.User;
@@ -14,6 +15,7 @@ import com.example.gestaoFinanceiro.entity.repository.RevenuesRepository;
 import com.example.gestaoFinanceiro.entity.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -150,6 +152,17 @@ public class RevenuesService extends AuthVerifyService {
             revenues.getDescription()
       );
     }
+
+    public List<CategoryTotalResponse> getTotalByCategory(){
+        User user = getAuthenticatedUser();
+        return revenuesRepository.totalRevenuesByCategory(user);
+    }
+
+    public BigDecimal getAllTotal(){
+        User user = getAuthenticatedUser();        
+        return revenuesRepository.totalRevenuesByUser(user);
+    }
+
 
 }
 

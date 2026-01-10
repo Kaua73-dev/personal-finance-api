@@ -1,5 +1,6 @@
 package com.example.gestaoFinanceiro.entity.repository;
 
+import com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse;
 import com.example.gestaoFinanceiro.entity.model.Revenues;
 import com.example.gestaoFinanceiro.entity.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,17 +27,17 @@ public interface RevenuesRepository extends JpaRepository<Revenues, Integer> {
     @Query("SELECT COALASCE(SUM(r.value), 0) FROM Revenues r WHERE r.user = :user")
     BigDecimal totalRevenuesByUser(User user);
 
-
     @Query("""
-        SELECT new com.example.gestaoFinanceiro.dto.response.CategoryTotalResponse(
-            r.nameCategory,
-            SUM(r.value)
-        )
-        FROM Revenues r
-        WHERE r.user = :user
-        GROUP BY r.nameCategory
-    """)
 
+        SELECT new com.example.gestaoFinanceiro.dto.response.CatrgoryTotalResponse(
+        r.nameCategory,
+        SUM(r.value)
+        )
+    FROM Revenues r
+    WHERE r.user = :user
+    GROUP BY r.nameCategory    
+""")
+    List<CategoryTotalResponse> totalRevenuesByCategory(User user);
 
 
 }
